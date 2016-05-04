@@ -41,18 +41,17 @@ public class Poi {
 	 * Detalle: Devuelve la distancia que hay hasta unPoi, en metros.
 	 */
 	public double distanciaA(Poi unPoi){
-		double radio_tierra = 6378.137; // Definido por WGS84
-		double diferencia_longitud = unPoi.longitud - this.longitud;
-		double diferencia_latitud = unPoi.latitud - this.latitud;
+		double radio_tierra = 6371000; // En metros
+		double diferencia_longitud = toRad(unPoi.longitud - this.longitud);
+		double diferencia_latitud = toRad(unPoi.latitud - this.latitud);
 		
 		// Formula matematica
 		double a = Math.sin(diferencia_latitud/2) * Math.sin(diferencia_latitud/2) + Math.cos(toRad(this.latitud)) * Math.cos(toRad(unPoi.latitud)) * Math.sin(diferencia_longitud/2) * Math.sin(diferencia_longitud/2);
-		double b = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-		double c = (radio_tierra * b);
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		double d = radio_tierra * c;
 		//
-		return (c*1000); // Lo convierto en metros
+		return d;
 	}
-	
 	/*
 	 * dentroRadio();
 	 * Detalle: Compara la distancia entre los POI, contra un radio en metros.
