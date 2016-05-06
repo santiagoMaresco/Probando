@@ -2,8 +2,7 @@
 Texto de probando
 
 # Como Exportar e Importar el proyecto
-<br />
-Para importar el proyecto a eclipse hacer lo siguiente:<br />
+<strong>Importar: </strong>
 <strong>1-</strong> Descomprimir el archivo en el escritorio<br />
 <strong>2-</strong> Abrir el eclipse, e ir a "File > Import", y seleccionamos "General > Existing Projets Into Workpspace"<br />
 <strong>3-</strong> En "Select root directory" seleccionar la carpeta "DDS"que esta en el escritorio<br />
