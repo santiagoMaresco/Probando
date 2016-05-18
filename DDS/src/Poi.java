@@ -1,10 +1,16 @@
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+
 public class Poi {
 	public double latitud;
 	public double longitud;
 	public String nombre;
-	public Rubro queSoy;
+	public String queSoy;
 	public Comuna comuna;
 	public String[] tags;
+	Collection<DisponibilidadHoraria> misHorarios = new HashSet<DisponibilidadHoraria>();
+	
 	
 	/*
 	 * INITIALIZE
@@ -25,7 +31,7 @@ public class Poi {
 		this.nombre = nom;
 	}
 	
-	public void setQueSoy(Rubro unRubro) {
+	public void setQueSoy(String unRubro) {
 		this.queSoy = unRubro;
 	}
 	
@@ -40,6 +46,22 @@ public class Poi {
 	public void setGeolocalizar(double unaLati, double unaLongi) {
 		this.latitud = unaLati;
 		this.longitud = unaLongi;
+	}
+	
+	/*
+	 * addHorario();
+	 
+	 */
+	public void addHorario(DisponibilidadHoraria unHorario){
+		misHorarios.add(unHorario);
+	}
+	
+	/*
+	 * delHorario();
+	 *
+	 */
+	public void delPoi(DisponibilidadHoraria unHorario){
+		misHorarios.remove(unHorario);
 	}
 	
 	/*
@@ -94,7 +116,19 @@ public class Poi {
 	 */
 	
 	public boolean estoyCercaDeLaInterface(Interface unaInterface){
-		if(queSoy.compararCercania(this, unaInterface)){
+		if(compararCercania(this, unaInterface)){
+			return true;
+		}
+		return false;
+	}
+	
+	/*
+	 * compararCercania();
+	 * Detalle: Dado un POI y una Interface, te decie si esta cerca o no.
+	 * 
+	 */
+	public boolean compararCercania(Poi unPoi, Interface unaInterface) {
+		if(unPoi.dentroDelRadio(unaInterface.latitud, unaInterface.longitud, 500)){
 			return true;
 		}
 		return false;
@@ -129,10 +163,26 @@ public class Poi {
 				}
 			}
 		}
-		// Busco en rubro
-		pesoPalabra += this.queSoy.pesoBusqueda(palabra);		
+		// Busco en queSoy
+		if(this.queSoy.toLowerCase().contains(palabra.toLowerCase())){
+			pesoPalabra+= 1;
+		}	
 		//
 		return pesoPalabra;
+	}
+	
+	/*
+	 * estoyDisponibleEl();
+	 */
+	
+	public boolean estoyDisponibleEl(int unDia, String unaHora){
+		Iterator<DisponibilidadHoraria> it = (this.misHorarios).iterator();
+		while(it.hasNext())
+		{
+			DisponibilidadHoraria i = it.next();
+			if(i.horarioIncluido(unDia, unaHora, null)) return true;
+		}				
+		return false;
 	}
 	
 }

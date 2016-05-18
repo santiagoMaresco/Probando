@@ -8,14 +8,10 @@ public class General {
 	private Comuna comuna5;
 	private Comuna comuna14;
 	private Interface sistema;
-	private Rubro banco;
-	private Comercio cafeteria;
-	private Parada paradaColectivo;
-	private CGP cgp;
-	private Poi parada160;
-	private Poi starbucks;
-	private Poi hsbc;
-	private Poi medrano;
+	private Parada parada160;
+	private Comercio starbucks;
+	private Banco hsbc;
+	private CGP medrano;
 
 	
 	/*
@@ -40,47 +36,32 @@ public class General {
 		sistema.setComuna(comuna5);
 		
 		/*
-		 * Creo los rubros de los POIs
-		 */
-		banco = new Rubro();
-		banco.setNombre("Banco");
-		
-		cafeteria = new Comercio();
-		cafeteria.setNombre("Cafeteria");
-		cafeteria.setRadioCercania(400);
-		
-		paradaColectivo = new Parada();
-		paradaColectivo.setNombre("Parada de Colectivo");
-		
-		cgp = new CGP();
-		cgp.setNombre("Centro de Gestion y Participacion");
-		
-		/*
 		 * Creo POIs de ejemplo
 		 */
-		parada160 = new Poi();
+		parada160 = new Parada();
 		parada160.setNombre("Parada 160");
+		parada160.setQueSoy("Parada");
 		parada160.setGeolocalizar(-34.59767959749551, -58.420222252607346);
-		parada160.setQueSoy(paradaColectivo);
 		parada160.setComuna(comuna14);
 		parada160.setTags("colectivo,160,parada");
 		
-		starbucks = new Poi();
+		starbucks = new Comercio();
 		starbucks.setNombre("StarBucks");
 		starbucks.setGeolocalizar(-34.58986883545346, -58.425733521580696);
-		starbucks.setQueSoy(cafeteria);
+		starbucks.setRadioCercania(400);
+		starbucks.setQueSoy("Cafeteria");
 		starbucks.setComuna(comuna14);
 		
-		hsbc = new Poi();
+		hsbc = new Banco();
 		hsbc.setNombre("HSBC");
 		hsbc.setGeolocalizar(-34.589780511683834, -58.42567451298237);
-		hsbc.setQueSoy(banco);
+		hsbc.setQueSoy("Banco");
 		hsbc.setComuna(comuna14);
 		
-		medrano = new Poi();
+		medrano = new CGP();
 		medrano.setGeolocalizar(-34.598593, -58.419936);
 		medrano.setNombre("UTN Medrano");
-		medrano.setQueSoy(cgp);
+		medrano.setQueSoy("CGP");
 		medrano.setComuna(comuna5);
 		
 		// Agrego los POIs al sistema
@@ -88,7 +69,6 @@ public class General {
 		sistema.addPoi(starbucks);
 		sistema.addPoi(hsbc);
 		sistema.addPoi(medrano);		
-		sistema.poisCercanos();
 	}
 	/*
 	 * ENREGA 1
@@ -101,6 +81,39 @@ public class General {
 		assertEquals(2, sistema.poisCercanos().size());
 		assertTrue(sistema.poisCercanos().contains(medrano));
 		assertTrue(sistema.poisCercanos().contains(parada160));
+	}
+	
+	@Test
+	public void testDisponibilidad(){			
+		DisponibilidadHoraria hora_starbucks_lunes = new DisponibilidadHoraria();
+		hora_starbucks_lunes.setHorario(1,"20:00","23:00", null);
+		
+		DisponibilidadHoraria hora_starbucks_martes = new DisponibilidadHoraria();
+		hora_starbucks_martes.setHorario(2,"20:00","23:00", null);
+		
+		DisponibilidadHoraria hora_medrano_firma_libreta = new DisponibilidadHoraria();
+		hora_medrano_firma_libreta.setHorario(1,"20:00","23:00", "Firmar Libreta");
+		
+		DisponibilidadHoraria hora_medrano_firma_libreta2 = new DisponibilidadHoraria();
+		hora_medrano_firma_libreta2.setHorario(4,"20:00","23:00", "Firmar Libreta");
+		
+		DisponibilidadHoraria hora_medrano_cursada = new DisponibilidadHoraria();
+		hora_medrano_cursada.setHorario(1,"20:00","23:00","Cursada");
+		
+		//		
+		starbucks.addHorario(hora_starbucks_lunes);
+		starbucks.addHorario(hora_starbucks_martes);
+		assertTrue(starbucks.estoyDisponibleEl(2, "22:00"));
+		//
+		
+		medrano.addHorario(hora_medrano_firma_libreta);
+		medrano.addHorario(hora_medrano_firma_libreta2);
+		medrano.addHorario(hora_medrano_cursada);
+		
+		assertTrue(medrano.estoyDisponibleEl(1, "22:00", "Firmar Libreta"));
+		assertTrue(medrano.estoyDisponibleEl(4, "22:00", null));
+		assertTrue(medrano.estoyDisponibleEl(1, "22:00", "Cursada"));
+		
 	}
 	
 	@Test

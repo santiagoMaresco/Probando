@@ -1,5 +1,4 @@
-
-public class Parada extends Rubro {
+public class Parada extends Poi {
 	
 	/*
 	 * compararCercania();
@@ -11,6 +10,10 @@ public class Parada extends Rubro {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean estoyDisponibleEl(int unDia, String unaHora){
+		return true;
 	}
 	
 }

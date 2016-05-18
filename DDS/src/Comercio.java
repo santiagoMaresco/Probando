@@ -1,5 +1,4 @@
-
-public class Comercio extends Rubro {
+public class Comercio extends Poi {
 	public double radioCercania;
 	
 	/*
