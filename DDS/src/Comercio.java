@@ -14,8 +14,9 @@ public class Comercio extends Poi {
 	 * Detalle: Dado un POI y una Interface, te decie si esta cerca o no.
 	 * 
 	 */
-	public boolean compararCercania(Poi unPoi, Interface unaInterface) {
-		if(unPoi.dentroDelRadio(unaInterface.latitud, unaInterface.longitud, this.radioCercania)){
+	
+	public boolean compararCercania(Poi unPoi, double latitudDeTerminal,double longitudDeTerminal,String comuna) {
+		if(unPoi.dentroDelRadio(latitudDeTerminal, longitudDeTerminal, this.radioCercania)){
 			return true;
 		}
 		return false;

@@ -9,7 +9,7 @@ public class Poi {
 	public String queSoy;
 	public Comuna comuna;
 	public String[] tags;
-	Collection<DisponibilidadHoraria> misHorarios = new HashSet<DisponibilidadHoraria>();
+	public Collection<DisponibilidadHoraria> misHorarios = new HashSet<DisponibilidadHoraria>();
 	
 	
 	/*
@@ -115,8 +115,8 @@ public class Poi {
 	 * Detalle: dada una interface, devuelve true si estoy cerca de ella.
 	 */
 	
-	public boolean estoyCercaDeLaInterface(Interface unaInterface){
-		if(compararCercania(this, unaInterface)){
+	public boolean estoyCercaDeLaTerminal(double latitudDeTerminal,double longitudDeTerminal,String comunaDeTerminal){
+		if(compararCercania(this, latitudDeTerminal,longitudDeTerminal,comunaDeTerminal)){
 			return true;
 		}
 		return false;
@@ -127,8 +127,8 @@ public class Poi {
 	 * Detalle: Dado un POI y una Interface, te decie si esta cerca o no.
 	 * 
 	 */
-	public boolean compararCercania(Poi unPoi, Interface unaInterface) {
-		if(unPoi.dentroDelRadio(unaInterface.latitud, unaInterface.longitud, 500)){
+	public boolean compararCercania(Poi unPoi, double latitudDeTerminal, double longitudDeTerminal,String comunaDeTerminal) {
+		if(unPoi.dentroDelRadio(latitudDeTerminal, longitudDeTerminal, 500)){
 			return true;
 		}
 		return false;

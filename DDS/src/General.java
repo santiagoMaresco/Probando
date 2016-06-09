@@ -1,13 +1,14 @@
 import org.junit.*;
 import static org.junit.Assert.*;
-import java.util.*;
+//import java.util.*;
 
 
 public class General {
 
 	private Comuna comuna5;
 	private Comuna comuna14;
-	private Interface sistema;
+	private Terminal sistema;
+	private Mapa mapa;
 	private Parada parada160;
 	private Comercio starbucks;
 	private Banco hsbc;
@@ -28,12 +29,14 @@ public class General {
 		comuna14 = new Comuna();
 		comuna14.setNombre("Palermo");
 		
+		mapa = new Mapa();
 		/*
 		 * Creo la interface
 		 */
-		sistema = new Interface();
+		sistema = new Terminal();
 		sistema.setGeolocalizar(-34.59782973357171, -58.42024974524975);
 		sistema.setComuna(comuna5);
+		sistema.setMapa(mapa);
 		
 		/*
 		 * Creo POIs de ejemplo
@@ -65,14 +68,21 @@ public class General {
 		medrano.setComuna(comuna5);
 		
 		// Agrego los POIs al sistema
-		sistema.addPoi(parada160);
-		sistema.addPoi(starbucks);
-		sistema.addPoi(hsbc);
-		sistema.addPoi(medrano);		
+		
+		sistema.getMapa().addPoi(parada160);
+		sistema.getMapa().addPoi(starbucks);
+		sistema.getMapa().addPoi(hsbc);
+		sistema.getMapa().addPoi(medrano);
+		 
 	}
 	/*
-	 * ENREGA 1
+	 * ENTREGA 1
 	 */
+	
+	@Test
+	public void testDale(){
+		assertTrue(true);
+	}
 	
 	@Test
 	public void testPoisCercanos(){			
@@ -135,6 +145,7 @@ public class General {
 	/*
 	 * ENTEGA 0B
 	 */
+	
 	@Test
 	public void testEsPoiValido(){
 		Poi poi1 = new Poi();

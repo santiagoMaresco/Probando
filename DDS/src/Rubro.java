@@ -1,5 +1,5 @@
 
-public class Rubro {
+public class Rubro{
 	public String nombre;
 	
 	/*
@@ -15,8 +15,9 @@ public class Rubro {
 	 * Detalle: Dado un POI y una Interface, te decie si esta cerca o no.
 	 * 
 	 */
-	public boolean compararCercania(Poi unPoi, Interface unaInterface) {
-		if(unPoi.dentroDelRadio(unaInterface.latitud, unaInterface.longitud, 500)){
+
+	public boolean compararCercania(Poi unPoi, double latitudDeTerminal, double longitudDeTerminal, String comunaTerminal) {
+		if(unPoi.dentroDelRadio(latitudDeTerminal, longitudDeTerminal, 500)){
 			return true;
 		}
 		return false;

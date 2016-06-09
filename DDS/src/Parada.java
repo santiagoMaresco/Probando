@@ -5,8 +5,9 @@ public class Parada extends Poi {
 	 * Detalle: Dado un POI y una Interface, te decie si esta cerca o no.
 	 * 
 	 */
-	public boolean compararCercania(Poi unPoi, Interface unaInterface) {
-		if(unPoi.dentroDelRadio(unaInterface.latitud, unaInterface.longitud, 100)){
+	@Override
+	public boolean compararCercania(Poi unPoi, double latitudDeTerminal, double longitudDeTerminal, String comunaDeTerminal) {
+		if(unPoi.dentroDelRadio(latitudDeTerminal, longitudDeTerminal, 100)){
 			return true;
 		}
 		return false;
