@@ -24,6 +24,20 @@ public class Mapa {
 	}
 	
 	/*
+	 * contPoi();
+	 * Detalle: Devuelve true si el POI está en la colección
+	 */
+	
+	public boolean contPoi(Poi unPoi){
+		if(pois.contains(unPoi)){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	/*
 	 * poisCercanos();
 	 * Detalle: Busca los pois cercanos al terminal, segun el criterio de cercania de cada poi.
 	 */
