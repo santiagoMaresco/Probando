@@ -2,6 +2,8 @@ import org.junit.*;
 import static org.junit.Assert.*;
 //import java.util.*;
 
+import java.util.Collection;
+
 
 public class General {
 
@@ -73,16 +75,21 @@ public class General {
 		sistema.getMapa().addPoi(starbucks);
 		sistema.getMapa().addPoi(hsbc);
 		sistema.getMapa().addPoi(medrano);
-		 
 	}
+	
 	/*
-	 * ENTREGA 1
+	 * ENTREGA 2
 	 */
 	
 	@Test
-	public void testDale(){
-		assertTrue(true);
+	public void buscarBancoJson(){
+		Collection<Poi> poi_tmp = mapa.buscarBanco("banco", "deposito");
+		assertEquals(2, poi_tmp.size());
 	}
+	
+	/*
+	 * ENTREGA 1
+	 */
 	
 	@Test
 	public void testPoisCercanos(){			
