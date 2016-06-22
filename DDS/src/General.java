@@ -13,7 +13,7 @@ public class General {
 	private Comercio starbucks;
 	private Banco hsbc;
 	private CGP medrano;
-	
+
 	private RangoServicioDTO rangoLunes;
 	private RangoServicioDTO rangoMartes;
 	private RangoServicioDTO rangoMiercoles;
@@ -83,8 +83,51 @@ public class General {
 		sistema.getMapa().addPoi(starbucks);
 		sistema.getMapa().addPoi(hsbc);
 		sistema.getMapa().addPoi(medrano);
-		
-		
+
+		// Agrego CentrosDTO
+
+		rangoLunes = new RangoServicioDTO(1, 9, 0, 18, 0);
+		rangoMartes = new RangoServicioDTO(2, 9, 0, 18, 0);
+		rangoMiercoles = new RangoServicioDTO(3, 9, 0, 18, 0);
+		rangoJueves = new RangoServicioDTO(4, 9, 0, 18, 0);
+		rangoViernes = new RangoServicioDTO(5, 9, 0, 18, 0);
+		servicioAyudaSocial = new ServicioDTO();
+		servicioDocumentacion = new ServicioDTO();
+		cgp1 = new CentroDTO();
+		cgp2 = new CentroDTO();
+		unCentroDTO = new ObtenerCentroDTOPrecargado();
+
+		// Set un servicio
+		servicioAyudaSocial.setNombre("Ayuda Social");
+		servicioAyudaSocial.rangosServicioDTO.add(rangoLunes);
+		servicioAyudaSocial.rangosServicioDTO.add(rangoMartes);
+		servicioAyudaSocial.rangosServicioDTO.add(rangoMiercoles);
+		servicioAyudaSocial.rangosServicioDTO.add(rangoJueves);
+		servicioAyudaSocial.rangosServicioDTO.add(rangoViernes);
+		// Set el cgp1
+		cgp1.setNroComuna(7);
+		cgp1.setZonas("Almagro");
+		cgp1.setNombreDirector("Gustavo Fernandez");
+		cgp1.setDomicilioCompleto("Medrano 900");
+		cgp1.setTelefono("49254787");
+		cgp1.serviciosDTO.add(servicioAyudaSocial);
+
+		// Set un servicio
+		servicioDocumentacion.setNombre("Documentacion");
+		servicioDocumentacion.rangosServicioDTO.add(rangoLunes);
+		servicioDocumentacion.rangosServicioDTO.add(rangoLunes);
+		servicioDocumentacion.rangosServicioDTO.add(rangoLunes);
+		servicioDocumentacion.rangosServicioDTO.add(rangoLunes);
+		servicioDocumentacion.rangosServicioDTO.add(rangoLunes);
+		// Set el cgp2
+		cgp2.setNroComuna(15);
+		cgp2.setZonas("Palermo");
+		cgp2.setNombreDirector("Federico Fernandez");
+		cgp2.setDomicilioCompleto("Scalabrini Ortiz 500");
+		cgp2.setTelefono("49254788");
+		cgp2.serviciosDTO.add(servicioAyudaSocial);
+		unCentroDTO.listaCGPs.add(cgp1);
+		unCentroDTO.listaCGPs.add(cgp2);
 	}
 
 	/*
@@ -95,6 +138,12 @@ public class General {
 	public void buscarBancoJson() {
 		Collection<Poi> poi_tmp = mapa.buscarBanco("banco", "deposito");
 		assertEquals(2, poi_tmp.size());
+	}
+
+	@Test
+	public void testBuscarCGP() {
+		assertEquals(1, unCentroDTO.obtenerCentrosDTO("Almagro").size());
+		assertEquals(1, unCentroDTO.obtenerCentrosDTO("Scalabrini Ortiz 500").size());
 	}
 
 	/*
