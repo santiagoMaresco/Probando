@@ -3,7 +3,7 @@ public class Administrador {
 
 	public Mapa unMapa; 
 	
-	/* Alta baja y modificación de POIs */
+	/* Alta baja y modificaciÃ³n de POIs */
 	
 	/*Alta */
 	
@@ -18,7 +18,7 @@ public class Administrador {
 			unPoi.setNombre(nuevoNombre);
 		}
 		else{
-			System.out.println(unPoi + "no se haya dentro del mapa");
+			System.out.println(unPoi.nombre + "no se haya dentro del mapa");
 		}
 	}
 	
@@ -27,7 +27,7 @@ public class Administrador {
 			unPoi.setQueSoy(rubro);
 		}
 		else{
-			System.out.println(unPoi + "no se haya dentro del mapa");
+			System.out.println(unPoi.nombre + "no se haya dentro del mapa");
 		}
 	}
 	
@@ -36,7 +36,7 @@ public class Administrador {
 			unPoi.setComuna(unaComuna);
 		}	
 		else{
-			System.out.println(unPoi + "no se haya dentro del mapa");
+			System.out.println(unPoi.nombre + "no se haya dentro del mapa");
 		}
 	}
 	
@@ -45,7 +45,7 @@ public class Administrador {
 			unPoi.setTags(tags);
 		}
 		else{
-			System.out.println(unPoi + "no se haya dentro del mapa");
+			System.out.println(unPoi.nombre + "no se haya dentro del mapa");
 		}
 	}
 	
@@ -54,7 +54,7 @@ public class Administrador {
 			unPoi.setGeolocalizar(unaLati, unaLongi);
 		}
 		else{
-			System.out.println(unPoi + "no se haya dentro del mapa");
+			System.out.println(unPoi.nombre + "no se haya dentro del mapa");
 		}
 	}
 	
