@@ -6,7 +6,7 @@ public class CentroDTO {
 	public String nombreDirector; // nombre del director
 	public String domicilioCompleto; // domicilio completo del CGP (ej: Junín 521)
 	public String telefono; // teléfono del CGP (4375-0644/45)
-	public ArrayList<ServicioDTO> serviciosDTO; // lista de “serviciosDTO”: array de servicios
+	public ArrayList<ServicioDTO> serviciosDTO = new ArrayList<ServicioDTO>(); // lista de “serviciosDTO”: array de servicios
 	
 // Getters
 	

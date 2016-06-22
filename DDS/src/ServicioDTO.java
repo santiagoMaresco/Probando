@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class ServicioDTO {
 	String nombre; // nombre del servicio (ej: Atención ciudadana)
-	ArrayList<RangoServicioDTO> rangosServicioDTO; // lista de “rangos servicio DTO”: Array con días de servicio
+	ArrayList<RangoServicioDTO> rangosServicioDTO = new ArrayList<RangoServicioDTO>(); // lista de “rangos servicio DTO”: Array con días de servicio
 
 	// Getters
 	public String getNombre() {
