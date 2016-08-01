@@ -1,5 +1,7 @@
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -13,17 +15,22 @@ import org.json.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-
 public class Mapa {
 
+	// Atributos
 	public Collection<Poi> pois = new HashSet<Poi>();
+	public Collection<Usuario> usuarios = new HashSet<Usuario>();
+	public BaseDeDatos baseDeDatos = new BaseDeDatos();
+	public int tiempoDeAvisoAdmin;
 	
+	
+	public void setTiempoDeAvisoAdmin(int tiempo){
+		this.tiempoDeAvisoAdmin = tiempo;
 	/*
 	 * addPoi();
 	 * Detalle: Agrega un POI a la coleccion
 	 */
-
+	}
 	public void addPoi(Poi unPoi){
 		pois.add(unPoi);
 	}
@@ -49,7 +56,18 @@ public class Mapa {
 			return false;
 		}
 	}
-	
+	/*
+	 * fechaActual();
+	 * Detalle: devuelve una fecha con el formato: DIA/MES/AÑO
+	 */
+	public String fechaActual() {
+		Calendar calendario = new GregorianCalendar();
+		String dia = String.valueOf(calendario.get(Calendar.DAY_OF_MONTH));
+		String mes = String.valueOf(calendario.get(Calendar.MONTH)+1);
+		String año = String.valueOf(calendario.get(Calendar.YEAR));
+		String diaMesAño = dia + "/" + mes + "/" + año;
+		return diaMesAño;
+		}
 	/*
 	 * poisCercanos();
 	 * Detalle: Busca los pois cercanos al terminal, segun el criterio de cercania de cada poi.
@@ -64,13 +82,35 @@ public class Mapa {
 				pois_tmp.add(unPoi);
 		}
 		return pois_tmp;
-	}	
-	
+	}
+	public void notificarDemora(Usuario administrador)
+	{
+		return;
+	}
+
+	public void solicitudDemoro()
+	{
+		Iterator<Usuario> it = (this.usuarios).iterator();
+		while(it.hasNext())
+		{
+			Usuario user = it.next();
+			if(user.esAdministrador())
+				notificarDemora(user);
+		}
+	}
 	/*
 	 * buscarPois();
 	 * Detalle: Busca segun texto libre
 	 */
-	public Collection<Poi> buscarPois(String texto){
+	public Collection<Poi> buscarPois(String texto,String terminal){
+	
+		
+		long time_start, time_end, tiempoTotalEnSegundos;
+		String fecha = fechaActual();
+		
+		// Empezamos a Contar los milisegundos
+		time_start = System.currentTimeMillis();
+		
 		// Creo un array de palabras
 		String[] palabras = texto.split(" ");
 		int pesoBusqueda;
@@ -83,12 +123,24 @@ public class Mapa {
 			pesoBusqueda = 0;
 			if(palabras != null){
 				// Busco cada palabra ingresada
+				
 				for(String palabra:palabras){
 					pesoBusqueda += i.pesoBusqueda(palabra);
 				}
 			}
 			if(pesoBusqueda > 0) pois_tmp.add(i);
 		}
+		
+		//Terminamos de Contar
+		
+		time_end = System.currentTimeMillis();
+		tiempoTotalEnSegundos = (time_end - time_start) / 1000;
+		
+		if(tiempoDeAvisoAdmin < tiempoTotalEnSegundos)
+			solicitudDemoro();
+		
+		baseDeDatos.registrarSolicitud(texto,fecha,tiempoTotalEnSegundos,terminal);
+		
 		return pois_tmp;
 	}
 	

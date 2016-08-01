@@ -160,6 +160,10 @@ public class General {
 	}
 
 	@Test
+	public void testFechaActual(){
+		assertEquals("1/8/2016",mapa.fechaActual());
+	}
+	@Test
 	public void testDisponibilidad() {
 		DisponibilidadHoraria hora_starbucks_lunes = new DisponibilidadHoraria();
 		hora_starbucks_lunes.setHorario(1, "20:00", "23:00", null);

@@ -1,7 +1,5 @@
 
-public class Administrador {
-
-	public Mapa unMapa; 
+public class Administrador extends Usuario {
 	
 	/* Alta baja y modificación de POIs */
 	
@@ -12,7 +10,12 @@ public class Administrador {
 	}
 	
 	/* Modificacion */ 
-		
+	
+	public boolean esAdministrador()
+	{
+		return true;
+	}
+	
 	public void modificarNombre(Poi unPoi, String nuevoNombre){
 		if(unMapa.contPoi(unPoi)){
 			unPoi.setNombre(nuevoNombre);

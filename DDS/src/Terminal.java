@@ -1,10 +1,11 @@
 import java.util.Collection;
 
-public class Terminal {
+public class Terminal extends Usuario {
+	public String nombre; //Agregar nombre al test!! no olvidar!!
 	public double latitud;
 	public double longitud;
 	public Comuna comuna;
-	public Mapa mapa;
+	
 	
 	/*
 	 * INITIALIZE
@@ -20,6 +21,9 @@ public class Terminal {
 	/*
 	 * SETs y GETs
 	 */
+	public void setNombre(String unNombre){
+		this.nombre = unNombre;
+	}
 	public void setComuna(Comuna unaComuna) {
 		this.comuna = unaComuna;
 	}
@@ -30,17 +34,17 @@ public class Terminal {
 	}
 	
 	public void setMapa(Mapa mapa){
-		this.mapa = mapa;
+		this.unMapa = mapa;
 	}
 	
 	public Mapa getMapa(){
-		return mapa;
+		return unMapa;
 	}
 	public Collection<Poi> poisCercanos(){
-		return mapa.poisCercanos(latitud,longitud,comuna.nombre);
+		return unMapa.poisCercanos(latitud,longitud,comuna.nombre);
 	}
 	public Collection<Poi> buscarPois(String texto){
-		return mapa.buscarPois(texto);
+		return unMapa.buscarPois(texto,nombre);
 	}
 	
 	
