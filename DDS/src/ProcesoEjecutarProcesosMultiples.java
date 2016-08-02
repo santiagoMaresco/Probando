@@ -2,18 +2,29 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class ProcesoEjecutarProcesosMultiples implements Proceso {
-
+	
+	public Collection<Proceso> procesos = new HashSet<Proceso>();
 	public Collection<ResultadoProceso> resultados = new HashSet<ResultadoProceso>();
+	
+	
+	public void anidarProcesos(Proceso unProceso){
+		this.procesos.add(unProceso);
+	}
 	
 	@Override
 	public void ejecutar() {
-		// TODO Auto-generated method stub
-
+		for(Proceso unProceso : procesos ){
+			unProceso.ejecutar();
+		}
 	}
+
+	
 
 	@Override
 	public void resultado() {
-		// TODO Auto-generated method stub
+		for(Proceso unProceso : procesos){
+			unProceso.resultado();
+		}
 
 	}
 
