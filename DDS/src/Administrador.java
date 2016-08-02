@@ -1,6 +1,12 @@
 
 public class Administrador extends Usuario {
 	
+	public Ejecutor control = new Ejecutor();
+	
+	public void setControl (Ejecutor unControl){
+		this.control=unControl;
+	}
+	
 	/* Alta baja y modificación de POIs */
 	
 	/*Alta */
