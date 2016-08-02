@@ -188,8 +188,19 @@ public class Mapa {
 		}
 		//
 		return pois_tmp;
-		
 	}
-
+		/*
+		 * Detalle: Dado un nombre de un poi, devuelve el poi
+		 */
+		public Poi obtenerPoi(String nombre) {
+			Iterator<Poi> it = (this.pois).iterator();
+			while (it.hasNext()) {
+				Poi i = it.next();
+				if (i.nombre.toLowerCase().contains(nombre.toLowerCase())) {
+					return i;
+				}
+			}
+			return null;
+		}
 
 }
