@@ -5,6 +5,6 @@ public class ResultadoProceso {
 	public String fechaFinalizacion;
 	public String horaFinalizacion;
 	public Proceso procesoEjecutado;
-	public byte resultado;
+	public boolean resultado;
 	
 }
