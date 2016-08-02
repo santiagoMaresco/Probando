@@ -192,14 +192,13 @@ public class Mapa {
 		/*
 		 * Detalle: Dado un nombre de un poi, devuelve el poi
 		 */
-		public Poi obtenerPoi(String nombre) {
+		public Poi obtenerPoi(String nom) {
 			Iterator<Poi> it = (this.pois).iterator();
-			while (it.hasNext()) {
-				Poi i = it.next();
-				if (i.nombre.toLowerCase().contains(nombre.toLowerCase())) {
-					return i;
+			while(it.hasNext()) {
+	            if((it.next().nombre.toLowerCase().contains(nom.toLowerCase()))) {
+					return it.next();
 				}
-			}
+	        }
 			return null;
 		}
 
