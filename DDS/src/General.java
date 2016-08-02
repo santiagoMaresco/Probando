@@ -24,6 +24,14 @@ public class General {
 	private CentroDTO cgp1;
 	private CentroDTO cgp2;
 	private ObtenerCentroDTO unCentroDTO;
+	
+	private Administrador admin;
+	private Ejecutor control;
+	private ProcesoActualizaciónComercios metodo1;
+	private ProcesoBajaPOI metodo2;
+	private ProcesoAgregarAccionesUsuarios metodo3;
+	private ProcesoEjecutarProcesosMultiples metodo4;
+	
 
 	/*
 	 * Corro este codigo para todos los test
@@ -128,8 +136,30 @@ public class General {
 		cgp2.serviciosDTO.add(servicioAyudaSocial);
 		unCentroDTO.listaCGPs.add(cgp1);
 		unCentroDTO.listaCGPs.add(cgp2);
+		
+		//Set Administrador, Ejecutor y metodo1
+		control = new Ejecutor();
+		
+		admin = new Administrador();
+		admin.setControl(control);
+		admin.setMapa(mapa);
+		
+		metodo1 = new ProcesoActualizaciónComercios();
+		metodo1.setAdmin(admin);
+		
 	}
 
+	/*
+	 * ENTREGA 4
+	 */
+	
+	@Test
+	public void testProcesoActualizacionComercios() {
+		admin.control.setProceso(metodo1);
+		admin.control.iniciarProceso();
+		assertEquals(1, metodo1.resultados.size());
+	}
+	
 	/*
 	 * ENTREGA 2
 	 */
