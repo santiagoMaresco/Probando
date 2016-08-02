@@ -1,9 +1,11 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Scanner;
 
 public class ProcesoActualizaciónComercios implements Proceso {
 	
@@ -20,30 +22,36 @@ public class ProcesoActualizaciónComercios implements Proceso {
 	 * Cargo lo del texto plano a mi variable nomYTags
 	 */
 	public void ponerContenidoEnLista(String archivo)  {
-		String cadena;
-		FileReader fr = null;
-		try {
-			fr = new FileReader(archivo);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		BufferedReader bf = new BufferedReader(fr);
-		try {
-			while ((cadena = bf.readLine()) != null) {
-				nomYTags=cadena.split(";");
+
+		// Fichero del que queremos leer
+				File fichero = new File(archivo);
+				Scanner s = null;
+
+				try {
+					// Leemos el contenido del fichero
+					System.out.println("... Leemos el contenido del fichero ...");
+					s = new Scanner(fichero);
+
+					// Leemos linea a linea el fichero
+					while (s.hasNextLine()) {
+						String linea = s.nextLine(); 	// Guardamos la linea en un String
+						System.out.println(linea);      // Imprimimos la linea
+						nomYTags=linea.split(";");
+					}
+
+				} catch (Exception ex) {
+					System.out.println("Mensaje: " + ex.getMessage());
+				} finally {
+					// Cerramos el fichero tanto si la lectura ha sido correcta o no
+					try {
+						if (s != null)
+							s.close();
+					} catch (Exception ex2) {
+						System.out.println("Mensaje 2: " + ex2.getMessage());
+					}
+				}
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			bf.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 	
 	
 	@Override
@@ -52,7 +60,8 @@ public class ProcesoActualizaciónComercios implements Proceso {
 		this.ponerContenidoEnLista("ActualizarComercios.txt");
 		
 		if (this.nomYTags != null) {
-			Poi i = admin.unMapa.obtenerPoi(nomYTags[0]);
+			Poi i = new Poi();
+			i = admin.unMapa.obtenerPoi(nomYTags[0]);
 			
 			if( i == null){
 				//Creo el Comercio
