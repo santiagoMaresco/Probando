@@ -1,4 +1,8 @@
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -9,8 +13,6 @@ public class ProcesoActualizaciónComercios implements Proceso {
 	Administrador admin = new Administrador();
 	//En esta ArrayList meto lo del .txt
 	String[] nomYTags;
-	ResultadoProceso resultado = new ResultadoProceso();
-	
 	
 	public void setAdmin (Administrador administrador){
 		this.admin=administrador;
@@ -54,12 +56,7 @@ public class ProcesoActualizaciónComercios implements Proceso {
 	
 	@Override
 	public void ejecutar() {
-		
-		//Comienzo a ejecutar
-		resultado.fechaInicio = admin.unMapa.fechaActual();
-		System.out.println("fecha de inicio: " + resultado.fechaInicio);
-		resultado.horaInicio = admin.unMapa.horaActual();
-		System.out.println("hora de inicio: " + resultado.horaInicio);
+		// TODO Auto-generated method stub
 		this.ponerContenidoEnLista("ActualizarComercios.txt");
 		
 		if (this.nomYTags != null) {
@@ -77,23 +74,12 @@ public class ProcesoActualizaciónComercios implements Proceso {
 				admin.modificarTags(i, nomYTags[1]);
 			}
 			}
-        //Pausa for 2 segundos para que cambie la hora
-		try {
-		    Thread.sleep(2000);                 
-		} catch(InterruptedException ex) {
-		    Thread.currentThread().interrupt();
-		}
-		//Finaliza ejecucion y documento el resultado obtenido
-		resultado.fechaFinalizacion = admin.unMapa.fechaActual();
-		System.out.println("fecha de finalizacion: " + resultado.fechaFinalizacion);
-		resultado.horaFinalizacion = admin.unMapa.horaActual();
-		System.out.println("hora de finalizacion: " + resultado.horaFinalizacion);
 		resultado();
 		}
 
 	@Override
 	public void resultado() {
-		
+		ResultadoProceso resultado = new ResultadoProceso();
 		resultado.procesoEjecutado=this;
 		Poi i = admin.unMapa.obtenerPoi(nomYTags[0]);
 		if( i == null){
