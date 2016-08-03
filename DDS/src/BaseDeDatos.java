@@ -32,7 +32,15 @@ public class BaseDeDatos {
 		}
 		return cantidadDeBusquedas;
 	}
-	
+	public boolean registroEnBaseDeDatos(RegistroDeBusqueda unRegistro){
+		boolean encontroRegistro = registrosDeBusqueda.stream()
+				                                      .anyMatch(otroRegistro -> 
+				                                      						 //otroRegistro.fecha == unRegistro.fecha &&
+				                                    	   	                 otroRegistro.fraseBuscada == unRegistro.fraseBuscada &&
+				                                    	 	                 otroRegistro.terminal == unRegistro.terminal &&
+				                                    	   	                 otroRegistro.tiempoDemorado == unRegistro.tiempoDemorado);
+		return encontroRegistro;
+	}
 	public void cantidadDeBusquedasPorFecha(){
 		Map<String, Integer> aMap = new HashMap<String, Integer>();
 		int contador_tmp = 0;

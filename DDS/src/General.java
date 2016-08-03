@@ -13,6 +13,7 @@ public class General {
 	private Comercio starbucks;
 	private Banco hsbc;
 	private CGP medrano;
+	private BaseDeDatos baseDeDatos;
 
 	private RangoServicioDTO rangoLunes;
 	private RangoServicioDTO rangoMartes;
@@ -48,6 +49,7 @@ public class General {
 		comuna14.setNombre("Palermo");
 
 		mapa = new Mapa();
+		baseDeDatos = new BaseDeDatos();
 		/*
 		 * Creo la interface
 		 */
@@ -55,6 +57,8 @@ public class General {
 		sistema.setGeolocalizar(-34.59782973357171, -58.42024974524975);
 		sistema.setComuna(comuna5);
 		sistema.setMapa(mapa);
+		sistema.setNombre("UTN");
+		mapa.setBaseDeDatos(baseDeDatos);
 
 		/*
 		 * Creo POIs de ejemplo
@@ -147,6 +151,7 @@ public class General {
 		metodo1 = new ProcesoActualizaciónComercios();
 		metodo1.setAdmin(admin);
 		
+		
 	}
 
 	/*
@@ -191,7 +196,17 @@ public class General {
 
 	@Test
 	public void testFechaActual(){
-		assertEquals("1/8/2016",mapa.fechaActual());
+		assertEquals("2/8/2016",mapa.fechaActual());
+	}
+	@Test
+	public void testRegistroBusqueda(){
+		RegistroDeBusqueda unRegistro = new RegistroDeBusqueda();
+		unRegistro.fecha = "2/8/2016";
+		unRegistro.fraseBuscada = "parada";
+		unRegistro.terminal = "UTN";
+		unRegistro.tiempoDemorado = 0;
+		assertEquals(1, sistema.buscarPois("parada").size());
+	    assertTrue(baseDeDatos.registroEnBaseDeDatos(unRegistro));
 	}
 	@Test
 	public void testDisponibilidad() {
