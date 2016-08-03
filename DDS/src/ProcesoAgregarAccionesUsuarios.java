@@ -6,6 +6,7 @@ public class ProcesoAgregarAccionesUsuarios implements Proceso {
 	public Collection<ResultadoProceso> resultados = new HashSet<ResultadoProceso>();
 	public Usuario user;
 	public Permisos nuevoPermiso;
+	public ResultadoProceso res = new ResultadoProceso();
 	
 	public void setUser (Usuario unUser){
 		this.user = unUser;
@@ -17,19 +18,28 @@ public class ProcesoAgregarAccionesUsuarios implements Proceso {
 	
 	@Override
 	public void ejecutar() {
+		res.fechaInicio = user.unMapa.fechaActual();
+		res.horaInicio = user.unMapa.horaActual();
 		user.permisos.add(nuevoPermiso);
+        //Pausa for 2 segundos para que cambie la hora
+		try {
+		    Thread.sleep(2000);                 
+		} catch(InterruptedException ex) {
+		    Thread.currentThread().interrupt();
+		}
+		//Finaliza ejecucion y documento el resultado obtenido
+		res.fechaFinalizacion = user.unMapa.fechaActual();
+		res.horaFinalizacion = user.unMapa.horaActual();
 		resultado();
 	}
 
 	@Override
 	public void resultado() {
-		if(user.permisos.contains(nuevoPermiso)){
-			ResultadoProceso res = new ResultadoProceso();
+		if(user.permisos.contains(nuevoPermiso)){	
 			res.procesoEjecutado = this;
 			res.resultado = true;
 		}
 		else{
-			ResultadoProceso res = new ResultadoProceso();
 			res.procesoEjecutado = this;
 			res.resultado = false;
 		}
