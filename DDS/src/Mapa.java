@@ -20,12 +20,9 @@ public class Mapa {
 	// Atributos
 	public Collection<Poi> pois = new HashSet<Poi>();
 	public Collection<Usuario> usuarios = new HashSet<Usuario>();
-	public BaseDeDatos baseDeDatos;
+	public BaseDeDatos baseDeDatos = new BaseDeDatos();
 	public int tiempoDeAvisoAdmin;
 	
-	public void setBaseDeDatos(BaseDeDatos unaBaseDeDatos){
-		this.baseDeDatos = unaBaseDeDatos;
-	}
 	
 	public void setTiempoDeAvisoAdmin(int tiempo){
 		this.tiempoDeAvisoAdmin = tiempo;
