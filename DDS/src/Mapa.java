@@ -59,6 +59,20 @@ public class Mapa {
 			return false;
 		}
 	}
+	
+	/*
+	 * horaActual();
+	 * Detalle: devuelve una hora con el formato: HOR/MIN/SEG
+	 */
+	public String horaActual() {
+		Calendar calendario = new GregorianCalendar();
+		String hora = String.valueOf(calendario.get(Calendar.HOUR_OF_DAY));
+		String minutos = String.valueOf(calendario.get(Calendar.MINUTE));
+		String segundos = String.valueOf(calendario.get(Calendar.SECOND));
+		String horMinSeg = hora + ":" + minutos + ":" + segundos;
+		return horMinSeg;
+		}
+	
 	/*
 	 * fechaActual();
 	 * Detalle: devuelve una fecha con el formato: DIA/MES/AÑO
